@@ -2,20 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class PlayerController : MonoBehaviour
-{   
+public class EnemyController : MonoBehaviour
+{
     // 速度
     public float Speed = 3f;
     private SpriteRenderer sp;
     private Rigidbody2D rd;
     
     // 方向
-    // public Sprite leftSprite;
-    // public Sprite rightSprite;
-    // public Sprite upSprite;
-    // public Sprite downSprite;
+    public Sprite leftSprite;
+    public Sprite rightSprite;
+    public Sprite upSprite;
+    public Sprite downSprite;
     
     // 子弹预制体
     public GameObject bulletPrefab;
@@ -28,23 +27,11 @@ public class PlayerController : MonoBehaviour
     
     // 爆炸特效预制体
     public GameObject explodePrefab;
-
-    // 动画状态机
-    private Animator animator;
-    
-    private Vector2 _lastDir;
     
     private void Awake()
     {
         sp = GetComponent<SpriteRenderer>();
         rd = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     private void Update()
@@ -106,80 +93,11 @@ public class PlayerController : MonoBehaviour
         {
             dir.x = horizontal;
         }
-
-        if (dir.magnitude > 0)
-            _lastDir = dir;
         rd.MovePosition(transform.position + dir * Speed * deltaTime);
         h = horizontal;
         v = vertical;
-        
-        animator.SetFloat("Horizontal",_lastDir.x);
-        animator.SetFloat("Vertical",_lastDir.y);
     }
     
-    /// <summary>
-    /// 通过按键移动
-    /// </summary>
-    private void _moveByKeyCode(float deltaTime,out float h,out float v)
-    {
-        Vector3 pos = transform.position;
-        int vertical = 0;
-        if (Input.GetKey(KeyCode.W))
-        {
-            vertical = 1;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            vertical = -1;
-        }
-        
-        int horizontal = 0;
-        if (Input.GetKey(KeyCode.D))
-        {
-            horizontal = 1;
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            horizontal = -1;
-        }
-        
-        pos.x = pos.x + Speed * deltaTime * horizontal;
-        pos.y = pos.y + Speed * deltaTime * vertical;
-        
-        transform.position = pos;
-        h = horizontal;
-        v = vertical;
-    }
-
-    /// <summary>
-    /// 通过角度转向
-    /// </summary>
-    /// <param name="horizontal"></param>
-    /// <param name="vertical"></param>
-    private void _rotateByAngle(float horizontal, float vertical)
-    {
-        var angle = transform.eulerAngles;
-        if (horizontal > 0)
-        {
-            angle.z = -90;
-        }
-        else if (horizontal < 0)
-        {
-            angle.z = 90;
-        }
-        
-        if (vertical > 0)
-        {
-            angle.z = 0;
-        }
-        else if (vertical < 0)
-        {
-            angle.z = 180;
-        }
-        
-        transform.eulerAngles = angle;
-    }
-
     /// <summary>
     /// 通过精灵图旋转
     /// </summary>
@@ -189,12 +107,12 @@ public class PlayerController : MonoBehaviour
     {
         if (vertical > 0)
         {
-            // sp.sprite = upSprite;
+            sp.sprite = upSprite;
             bulletAngles.z = 0;
         }
         else if (vertical < 0)
         {
-            // sp.sprite = downSprite;
+            sp.sprite = downSprite;
             bulletAngles.z = 180;
         }
         
@@ -203,12 +121,12 @@ public class PlayerController : MonoBehaviour
         
         if (horizontal > 0)
         {
-            // sp.sprite = rightSprite;
+            sp.sprite = rightSprite;
             bulletAngles.z = -90;
         }
         else if (horizontal < 0)
         {
-            // sp.sprite = leftSprite;
+            sp.sprite = leftSprite;
             bulletAngles.z = 90;
         }
     }

@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Wall
+  - IronWall
+  - Home
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -40,4 +44,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Obstacle
+    uniqueID: 621876453
+    locked: 0
+  - name: Bullet
+    uniqueID: 4045958137
+    locked: 0
+  - name: Player
+    uniqueID: 595992487
+    locked: 0
+  - name: Effect
+    uniqueID: 1615087431
+    locked: 0
+  - name: Grass
+    uniqueID: 831162629
     locked: 0
